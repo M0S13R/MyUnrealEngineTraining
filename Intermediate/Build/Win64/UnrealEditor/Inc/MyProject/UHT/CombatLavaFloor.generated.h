@@ -20,14 +20,14 @@ class UPrimitiveComponent;
 struct FHitResult;
 
 // ********** Begin Class ACombatLavaFloor *********************************************************
-#define FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnFloorHit);
 
 
 struct Z_Construct_UClass_ACombatLavaFloor_Statics;
 MYPROJECT_API UClass* Z_Construct_UClass_ACombatLavaFloor_NoRegister();
 
-#define FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_INCLASS_NO_PURE_DECLS \
+#define FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesACombatLavaFloor(); \
 	friend struct ::Z_Construct_UClass_ACombatLavaFloor_Statics; \
@@ -38,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(ACombatLavaFloor)
 
 
-#define FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_ENHANCED_CONSTRUCTORS \
+#define FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ACombatLavaFloor(ACombatLavaFloor&&) = delete; \
 	ACombatLavaFloor(const ACombatLavaFloor&) = delete; \
@@ -48,13 +48,13 @@ public: \
 	NO_API virtual ~ACombatLavaFloor();
 
 
-#define FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_15_PROLOG
-#define FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_GENERATED_BODY \
+#define FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_15_PROLOG
+#define FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_INCLASS_NO_PURE_DECLS \
-	FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_ENHANCED_CONSTRUCTORS \
+	FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_INCLASS_NO_PURE_DECLS \
+	FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -64,6 +64,6 @@ class ACombatLavaFloor;
 // ********** End Class ACombatLavaFloor ***********************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Unreal_Projects_MyProject_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h
+#define CURRENT_FILE_ID FID_repositories_MyUnrealEngineTraining_Source_MyProject_Variant_Combat_Gameplay_CombatLavaFloor_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

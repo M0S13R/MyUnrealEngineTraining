@@ -58,6 +58,9 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Input->BindAction(InputActionMove, ETriggerEvent::Triggered, this, &ThisClass::InputMove);
 		Input->BindAction(InputActionZoom, ETriggerEvent::Triggered, this, &ThisClass::InputZoom);
 		Input->BindAction(InputActionLook, ETriggerEvent::Triggered, this, &ThisClass::InputLook);
+		Input->BindAction(InputActionScale, ETriggerEvent::Triggered, this, &ThisClass::InputScale);
+		Input->BindAction(InputActionSpawn, ETriggerEvent::Triggered, this, &ThisClass::InputSpawnProjectile);
+		Input->BindAction(InputActionRotate, ETriggerEvent::Triggered, this, &ThisClass::InputRotateProjectile);
 	}
 }
 
@@ -83,4 +86,32 @@ void APlayerPawn::InputLook(const FInputActionValue& InputActionValue)
 	FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
 	AddControllerYawInput(LookAxisVector.X);
 	AddControllerPitchInput(LookAxisVector.Y);
+}
+
+void APlayerPawn::InputScale(const FInputActionValue& InputActionValue)
+{
+	float ScaleValue = InputActionValue.Get<float>();
+	FVector CurrentScale = (ScaleValue > 0) ? GetActorScale3D() + 0.25 : StaticMeshComponent->GetRelativeScale3D() - 0.25;
+	
+	CurrentScale.X = FMath::Clamp(CurrentScale.X, 0.5, 2.0);
+	CurrentScale.Y = FMath::Clamp(CurrentScale.Y, 0.5, 2.0);
+	CurrentScale.Z = FMath::Clamp(CurrentScale.Z, 0.5, 2.0);
+	
+	if (ScaleValue > 0) SetActorScale3D(CurrentScale);
+	else StaticMeshComponent->SetRelativeScale3D(CurrentScale);
+}
+
+void APlayerPawn::InputSpawnProjectile(const FInputActionValue& InputActionValue)
+{
+	FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 100;
+	
+	GetWorld()->SpawnActor<AMyProjectileActor>(ProjectileClass, SpawnLocation, GetActorRotation());
+}
+
+void APlayerPawn::InputRotateProjectile(const FInputActionValue& InputActionValue)
+{
+	float RotateValue = InputActionValue.Get<float>();
+	float PitchDeg = 5 * RotateValue * GetWorld()->GetDeltaSeconds();
+	
+	AddActorLocalRotation(FRotator(PitchDeg, 0, 0));
 }

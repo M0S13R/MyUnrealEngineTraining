@@ -106,15 +106,15 @@ AMyGameModeBase::~AMyGameModeBase() {}
 // ********** End Class AMyGameModeBase ************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Unreal_Projects_MyProject_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics
+struct Z_CompiledInDeferFile_FID_repositories_MyUnrealEngineTraining_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_AMyGameModeBase, AMyGameModeBase::StaticClass, TEXT("AMyGameModeBase"), &Z_Registration_Info_UClass_AMyGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyGameModeBase), 2521640299U) },
 	};
-}; // Z_CompiledInDeferFile_FID_Unreal_Projects_MyProject_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_MyProject_Source_MyProject_MyGameModeBase_h__Script_MyProject_1398193628{
+}; // Z_CompiledInDeferFile_FID_repositories_MyUnrealEngineTraining_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics 
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_repositories_MyUnrealEngineTraining_Source_MyProject_MyGameModeBase_h__Script_MyProject_1398193628{
 	TEXT("/Script/MyProject"),
-	Z_CompiledInDeferFile_FID_Unreal_Projects_MyProject_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_MyProject_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics::ClassInfo),
+	Z_CompiledInDeferFile_FID_repositories_MyUnrealEngineTraining_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_repositories_MyUnrealEngineTraining_Source_MyProject_MyGameModeBase_h__Script_MyProject_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0,
 };
