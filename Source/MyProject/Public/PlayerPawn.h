@@ -8,6 +8,7 @@
 #include "Camera/CameraComponent.h"
 #include "InputMappingContext.h"
 #include "MyProjectileActor.h"
+#include "Components/CapsuleComponent.h"
 #include "PlayerPawn.generated.h"
 
 UCLASS()
@@ -47,7 +48,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UCapsuleComponent> CapsuleComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UStaticMeshComponent> StaticMeshComponent;
 	
 	UPROPERTY(EditDefaultsOnly)

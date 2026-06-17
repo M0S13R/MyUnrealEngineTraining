@@ -13,16 +13,23 @@ APlayerPawn::APlayerPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComponent"));
+	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
+	CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CapsuleComponent->SetCollisionObjectType(ECC_Pawn);
+	CapsuleComponent->SetCollisionResponseToAllChannels(ECR_Block);
+	CapsuleComponent->SetCapsuleHalfHeight(90.0f);
+	CapsuleComponent->SetCapsuleRadius(50.0f);
+	RootComponent = CapsuleComponent;
 	
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	StaticMeshComponent->SetupAttachment(RootComponent);
 	
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
-	SpringArmComponent->SetupAttachment(RootComponent);
+	SpringArmComponent->SetupAttachment(StaticMeshComponent);
 	
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
+	
 }
 
 // Called when the game starts or when spawned
@@ -68,8 +75,8 @@ void APlayerPawn::InputMove(const FInputActionValue& InputActionValue)
 {
 	const FVector2D& MovementVector = InputActionValue.Get<FVector2D>();
 	
-	SetActorLocation(GetActorLocation() + GetActorForwardVector() * MovementVector.Y);
-	SetActorLocation(GetActorLocation() + GetActorRightVector() * MovementVector.X);
+	SetActorLocation(GetActorLocation() + GetActorForwardVector() * MovementVector.Y, true);
+	SetActorLocation(GetActorLocation() + GetActorRightVector() * MovementVector.X, true);
 }
 
 
