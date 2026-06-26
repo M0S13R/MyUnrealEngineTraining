@@ -122,3 +122,31 @@ void APlayerPawn::InputRotateProjectile(const FInputActionValue& InputActionValu
 	
 	AddActorLocalRotation(FRotator(PitchDeg, 0, 0));
 }
+
+void APlayerPawn::CustomMultiLineTrace()
+{
+	FVector Start = GetActorLocation();
+	FVector End = Start + (GetActorForwardVector() * 2000.f);
+	
+	TArray<FHitResult> HitResults;
+	
+	FCollisionQueryParams TraceParams(FName(TEXT("LineTrace")), true, this);
+	
+	bool bHit = GetWorld()->LineTraceMultiByChannel(HitResults, Start, End, ECC_Visibility, TraceParams);
+	
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 2.f, 0, 2.f);
+	
+	if (bHit)
+	{
+		for (const FHitResult& Hit : HitResults)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor)
+			{
+				FString CollisionType = Hit.bBlockingHit ? TEXT("Block") : TEXT("Overlap");
+				FString Message = FString::Printf(TEXT("Trace Hit: %s (%s)"), *HitActor->GetName(), *CollisionType);
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, Message);
+			}
+		}
+	}
+}

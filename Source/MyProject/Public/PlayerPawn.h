@@ -9,6 +9,7 @@
 #include "InputMappingContext.h"
 #include "MyProjectileActor.h"
 #include "Components/CapsuleComponent.h"
+#include "DrawDebugHelpers.h"
 #include "PlayerPawn.generated.h"
 
 UCLASS()
@@ -59,6 +60,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCameraComponent> CameraComponent;
+	
+	UFUNCTION(BlueprintCallable)
+	void CustomMultiLineTrace();
 	
 	
 	void InputMove(const FInputActionValue& InputActionValue);
