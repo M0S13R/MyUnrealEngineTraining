@@ -6,10 +6,12 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/Controller.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "MyInterface.h"
 #include "MyProject.h"
 
 AMyProjectCharacter::AMyProjectCharacter()
@@ -130,4 +132,24 @@ void AMyProjectCharacter::DoJumpEnd()
 {
 	// signal the character to stop jumping
 	StopJumping();
+}
+
+void AMyProjectCharacter::ChangeLightsColor()
+{
+	TArray<AActor*> FoundActors;
+	
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), FoundActors);
+	
+	for (AActor* Actor : FoundActors)
+	{
+		if (Actor && Actor->GetClass()->ImplementsInterface(UMyInterface::StaticClass()))
+		{
+			IMyInterface::Execute_OnInteract(Actor);
+		}
+	}
+}
+
+void AMyProjectCharacter::ExecuteMyDelegate()
+{
+	MyCustomDelegate.Broadcast();
 }

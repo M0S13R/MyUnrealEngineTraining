@@ -13,6 +13,7 @@ class UInputAction;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMyCustomDelegate);
 
 /**
  *  A simple player-controllable third person character
@@ -92,5 +93,13 @@ public:
 
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
+	UFUNCTION(BlueprintCallable)
+	void ChangeLightsColor();
+	
+	FMyCustomDelegate MyCustomDelegate;
+	
+	UFUNCTION(BlueprintCallable)
+	void ExecuteMyDelegate();
 };
 
