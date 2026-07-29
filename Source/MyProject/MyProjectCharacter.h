@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/WidgetComponent.h"
 #include "Logging/LogMacros.h"
 #include "MyProjectCharacter.generated.h"
 
@@ -33,6 +34,8 @@ class AMyProjectCharacter : public ACharacter
 	UCameraComponent* FollowCamera;
 	
 protected:
+	
+	virtual void BeginPlay() override;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, Category="Input")
@@ -101,5 +104,20 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void ExecuteMyDelegate();
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UWidgetComponent> NameplateWidget;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString PlayerName = "Name";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bShowName = false;
+	
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerName(FString NewName);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetShowName(bool bShow);
 };
 

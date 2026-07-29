@@ -4,6 +4,8 @@
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/TextBlock.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -50,6 +52,22 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	
+	NameplateWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("NameplateWidget"));
+	NameplateWidget->SetupAttachment(GetRootComponent());
+}
+
+void AMyProjectCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	if (NameplateWidget)
+	{
+		NameplateWidget->InitWidget();
+	}
+	
+	SetShowName(bShowName);
+	SetPlayerName(PlayerName);
 }
 
 void AMyProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -152,4 +170,37 @@ void AMyProjectCharacter::ChangeLightsColor()
 void AMyProjectCharacter::ExecuteMyDelegate()
 {
 	MyCustomDelegate.Broadcast();
+}
+
+void AMyProjectCharacter::SetPlayerName(FString NewName)
+{
+	PlayerName = NewName;
+	
+	if (NameplateWidget)
+	{
+		if (!NameplateWidget->GetUserWidgetObject())
+		{
+			NameplateWidget->InitWidget();
+		}
+		
+		UUserWidget* UserWidget = NameplateWidget->GetUserWidgetObject();
+		if (UserWidget)
+		{
+			UTextBlock* NameText = Cast<UTextBlock>(UserWidget->GetWidgetFromName(TEXT("TX_PlayerName")));
+			if (NameText)
+			{
+				NameText->SetText(FText::FromString(PlayerName));
+			}
+		}
+	}
+}
+
+void AMyProjectCharacter::SetShowName(bool bShow)
+{
+	bShowName = bShow;
+	if (NameplateWidget)
+	{
+		NameplateWidget->SetVisibility(bShow);
+		NameplateWidget->SetHiddenInGame(!bShow);
+	}
 }

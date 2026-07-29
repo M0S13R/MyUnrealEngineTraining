@@ -13,7 +13,7 @@ ABlockedCube::ABlockedCube()
 	RootComponent = CubeMesh;
 	
 	CubeMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	CubeMesh->SetCollisionProfileName(TEXT("CustomCollision"));
+	// CubeMesh->SetCollisionProfileName(TEXT("CustomCollision"));
 	CubeMesh->SetCollisionResponseToAllChannels(ECR_Block);
 	CubeMesh->SetNotifyRigidBodyCollision(true);
 	

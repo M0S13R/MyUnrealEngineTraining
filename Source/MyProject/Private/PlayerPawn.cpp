@@ -91,8 +91,8 @@ void APlayerPawn::InputZoom(const FInputActionValue& InputActionValue)
 void APlayerPawn::InputLook(const FInputActionValue& InputActionValue)
 {
 	FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
-	AddControllerYawInput(LookAxisVector.X);
-	AddControllerPitchInput(LookAxisVector.Y);
+	AddControllerYawInput(LookAxisVector.X * 10);
+	AddControllerPitchInput(LookAxisVector.Y * 10);
 }
 
 void APlayerPawn::InputScale(const FInputActionValue& InputActionValue)
