@@ -52,6 +52,9 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* MouseLookAction;
+	
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* AttackAction;
 
 public:
 
@@ -70,6 +73,7 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+	void LookCompleted(const FInputActionValue& Value);
 
 public:
 
@@ -119,5 +123,20 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void SetShowName(bool bShow);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float ForwardInputValue;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float RightInputValue;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bIsStunned = false;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bAttacking = false;
+	
+	void SetAttackStarted(const FInputActionValue& Value);
+	void SetAttackCompleted(const FInputActionValue& Value);
 };
 

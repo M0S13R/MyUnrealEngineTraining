@@ -16,6 +16,7 @@
 #include "MyInterface.h"
 #include "MyProject.h"
 
+
 AMyProjectCharacter::AMyProjectCharacter()
 {
 	// Set size for collision capsule
@@ -81,10 +82,16 @@ void AMyProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyProjectCharacter::Move);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Look);
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Completed, this, &AMyProjectCharacter::LookCompleted);
+		
+		// Attacking
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::SetAttackStarted);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Completed, this, &AMyProjectCharacter::SetAttackCompleted);
 	}
 	else
 	{
@@ -96,6 +103,18 @@ void AMyProjectCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
+	if (Controller != nullptr)
+	{
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		
+		AddMovementInput(ForwardDirection, MovementVector.Y);
+		AddMovementInput(RightDirection, MovementVector.X);
+		ForwardInputValue = MovementVector.Y;
+		RightInputValue = MovementVector.X;
+	}
 
 	// route the input
 	DoMove(MovementVector.X, MovementVector.Y);
@@ -105,9 +124,26 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	GEngine->AddOnScreenDebugMessage(0, 10.f, FColor::Red, FString::Printf(TEXT("Move Y: %f"), ForwardInputValue));
+	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Green, FString::Printf(TEXT("Move X: %f"), RightInputValue));
+	
+	if (Controller != nullptr)
+	{
+		if (RightInputValue != 1 && RightInputValue != -1)
+		{
+			RightInputValue = LookAxisVector.X;
+		}
+		AddControllerYawInput(LookAxisVector.X);
+		AddControllerPitchInput(LookAxisVector.Y);
+	}
 
 	// route the input
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
+}
+
+void AMyProjectCharacter::LookCompleted(const FInputActionValue& Value)
+{
+	RightInputValue = 0;
 }
 
 void AMyProjectCharacter::DoMove(float Right, float Forward)
@@ -203,4 +239,14 @@ void AMyProjectCharacter::SetShowName(bool bShow)
 		NameplateWidget->SetVisibility(bShow);
 		NameplateWidget->SetHiddenInGame(!bShow);
 	}
+}
+
+void AMyProjectCharacter::SetAttackStarted(const FInputActionValue& Value)
+{
+	bAttacking = true;
+}
+
+void AMyProjectCharacter::SetAttackCompleted(const FInputActionValue& Value)
+{
+	bAttacking = false;
 }
