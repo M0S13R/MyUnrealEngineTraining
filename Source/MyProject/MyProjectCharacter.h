@@ -138,5 +138,9 @@ public:
 	
 	void SetAttackStarted(const FInputActionValue& Value);
 	void SetAttackCompleted(const FInputActionValue& Value);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float CurrentDamage = 0;
+	
 };
 
