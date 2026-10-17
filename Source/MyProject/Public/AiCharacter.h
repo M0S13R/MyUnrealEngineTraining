@@ -8,6 +8,7 @@
 #include "AiCharacter.generated.h"
 
 class UWidgetComponent;
+class ATurretProjectile;
 
 UCLASS()
 class MYPROJECT_API AAiCharacter : public ACharacter
@@ -39,6 +40,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = Character)
 	void Stun();
+	
+	UFUNCTION(BlueprintCallable, Category = Character)
+	void FireProjectile();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	TSubclassOf<ATurretProjectile> ProjectileClass;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsAttacking = false;

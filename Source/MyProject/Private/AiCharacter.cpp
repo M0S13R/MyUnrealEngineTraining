@@ -2,6 +2,7 @@
 
 
 #include "AiCharacter.h"
+#include "TurretProjectile.h"
 
 // Sets default values
 AAiCharacter::AAiCharacter()
@@ -38,7 +39,21 @@ void AAiCharacter::Attack()
 	IsAttacking = true;
 	
 	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AAiCharacter::EndAttack, 3.f, false);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AAiCharacter::EndAttack, 1.f, false);
+}
+
+void AAiCharacter::FireProjectile()
+{
+	if (!ProjectileClass) return;
+	
+	FVector SpawnLocation = GetActorLocation() + (GetActorForwardVector() * 100.0f);
+	FRotator SpawnRotation = GetActorRotation();
+	
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = GetInstigator();
+	
+	GetWorld()->SpawnActor<ATurretProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
 }
 
 void AAiCharacter::EndAttack()
