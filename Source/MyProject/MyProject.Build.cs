@@ -20,7 +20,9 @@ public class MyProject : ModuleRules
 			"UMG",
 			"Slate",
 			"GameplayTasks",
-			"NavigationSystem"
+			"NavigationSystem",
+			"OnlineSubSystem",
+			"OnlineSubsystemUtils"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

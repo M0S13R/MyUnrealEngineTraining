@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Controller.h"
+#include "Net/UnrealNetwork.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -19,6 +20,8 @@
 
 AMyProjectCharacter::AMyProjectCharacter()
 {
+	bReplicates = true;
+	SetReplicateMovement(true);
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -239,6 +242,15 @@ void AMyProjectCharacter::SetShowName(bool bShow)
 		NameplateWidget->SetVisibility(bShow);
 		NameplateWidget->SetHiddenInGame(!bShow);
 	}
+}
+
+void AMyProjectCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME(AMyProjectCharacter, ForwardInputValue);
+	DOREPLIFETIME(AMyProjectCharacter, RightInputValue);
+	DOREPLIFETIME(AMyProjectCharacter, TurnInputRate);
 }
 
 void AMyProjectCharacter::SetAttackStarted(const FInputActionValue& Value)

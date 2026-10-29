@@ -124,11 +124,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetShowName(bool bShow);
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
 	float ForwardInputValue;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
 	float RightInputValue;
+	
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
+	float TurnInputRate;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bIsStunned = false;
